@@ -15,6 +15,7 @@ class AppPref(var context: Context) {
         val BOY_KEY = doublePreferencesKey("BOY")
         val BEKAR_KEY = booleanPreferencesKey("BEKAR")
         val ARKADAS_LİSTE_KEY = stringSetPreferencesKey("ARKADAS_LISTE")
+        val SAYAC_KEY = intPreferencesKey("SAYAC")
     }
 
     suspend fun kayitAd(ad: String) { // Suspend olması işlem zaman alacak bekle demek.
@@ -33,7 +34,7 @@ class AppPref(var context: Context) {
             it.remove(AD_KEY)
         }
     }
-    suspend fun kayitYas(yas: Int) { // Suspend olması işlem zaman alacak bekle demek.
+    suspend fun kayitYas(yas: Int) {
         context.ds.edit {
             it[YAS_KEY] = yas
         }
@@ -43,7 +44,7 @@ class AppPref(var context: Context) {
         val p = context.ds.data.first()
         return p[YAS_KEY] ?: 0
     }
-    suspend fun kayitBoy(boy: Double) { // Suspend olması işlem zaman alacak bekle demek.
+    suspend fun kayitBoy(boy: Double) {
         context.ds.edit {
             it[BOY_KEY] = boy
         }
@@ -52,5 +53,36 @@ class AppPref(var context: Context) {
     suspend fun okuBoy(): Double {
         val p = context.ds.data.first()
         return p[BOY_KEY] ?: 0.0
+    }
+    suspend fun kayitBekar(bekar: Boolean) {
+        context.ds.edit {
+            it[BEKAR_KEY] = bekar
+        }
+    }
+
+    suspend fun okuBekar(): Boolean {
+        val p = context.ds.data.first()
+        return p[BEKAR_KEY] ?: false
+    }
+    suspend fun kayitArkadasListe(liste: Set<String>) {
+        context.ds.edit {
+            it[ARKADAS_LİSTE_KEY] = liste
+        }
+    }
+
+    suspend fun okuArkadasListe(): Set<String>? {
+        val p = context.ds.data.first()
+        return p[ARKADAS_LİSTE_KEY]
+    }
+
+    suspend fun kayitSayac(sayac: Int) {
+        context.ds.edit {
+            it[SAYAC_KEY] = sayac
+        }
+    }
+
+    suspend fun okuSayac(): Int {
+        val p = context.ds.data.first()
+        return p[SAYAC_KEY] ?:0
     }
 }
